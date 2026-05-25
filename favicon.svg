@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <!-- Fundo escuro com cantos arredondados -->
+  <rect width="60" height="60" rx="12" fill="#1a1a1a"/>
+  <!-- Logo Light Soul: arco + gota + linhas de base -->
+  <g fill="none" stroke="#F1F1F1" stroke-width="2.2" stroke-linecap="round">
+    <!-- arco inferior -->
+    <path d="M14 30 a16 16 0 0 0 32 0"/>
+    <!-- gota -->
+    <path d="M30 16 C24 24 24 32 30 36 C36 32 36 24 30 16 Z"/>
+    <!-- acento interno da gota -->
+    <line x1="30" y1="22" x2="30" y2="30" stroke-width="1.4" opacity="0.7"/>
+    <!-- linhas de base -->
+    <line x1="12" y1="44" x2="48" y2="44" opacity="0.55"/>
+    <line x1="18" y1="48" x2="42" y2="48" opacity="0.35"/>
+  </g>
+</svg>
