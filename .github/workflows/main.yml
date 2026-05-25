@@ -12,5 +12,5 @@ jobs:
         host: ${{ secrets.HOST }} 
         user: ${{ secrets.USER }}
         password: ${{ secrets.PASS }}
-        localDir: "./index.html/"
+        localDir: "./"
         remoteDir: "./public_html/"
