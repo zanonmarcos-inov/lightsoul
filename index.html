@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Light Soul — Velas Aromáticas Artesanais</title>
+<meta name="description" content="Velas aromáticas artesanais. Cera natural, óleos essenciais puros, feitas à mão.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #1a1a1a;
+    --ink-soft:   #333333;
+    --mist:       #B3B3B3;
+    --mist-soft:  #d8d8d8;
+    --silver:     #F1F1F1;
+    --silver-2:   #E8E8E8;
+    --white:      #ffffff;
+    --black:      #000000;
+
+    --maxw: 1320px;
+    --gutter: 40px;
+
+    --ease: cubic-bezier(.4,0,.2,1);
+    --t: .35s var(--ease);
+    --t-slow: .7s var(--ease);
+
+    /* Editmode-controlled */
+    --hero-flame-scale: 1;
+  }
+  @media (max-width:760px){ :root { --gutter: 22px; } }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Roboto', system-ui, sans-serif;
+    background: var(--silver);
+    color: var(--ink-soft);
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+  a { color:inherit; text-decoration:none; }
+  button { font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+  img,svg { display:block; max-width:100%; }
+  ::selection { background:var(--ink); color:var(--silver); }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============ TYPE SYSTEM ============ */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .display {
+    font-weight: 100;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .display .it { font-style: italic; font-weight: 200; }
+  h2.section-title {
+    font-weight: 200;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .lede {
+    font-weight: 300;
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 44ch;
+  }
+  .meta {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--mist);
+  }
+
+  /* ============ TICKER ============ */
+  .ticker {
+    background: var(--black);
+    color: var(--silver);
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    padding: 9px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-flex;
+    gap: 60px;
+    padding-left: 60px;
+    animation: ticker 36s linear infinite;
+  }
+  .ticker-track span { display:inline-flex; align-items:center; gap: 60px; }
+  .ticker-track i { font-style:normal; opacity:.4; }
+  @keyframes ticker { to { transform: translateX(-50%); } }
+
+  /* ============ NAV ============ */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(241,241,241, 0);
+    transition: background var(--t), backdrop-filter var(--t), border-color var(--t), padding var(--t);
+    border-bottom: 1px solid transparent;
+  }
+  header.scrolled {
+    background: rgba(241,241,241, 0.86);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom-color: rgba(0,0,0,.06);
+  }
+  nav.bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 0;
+    gap: 24px;
+  }
+  .nav-mark { display:flex; align-items:center; gap: 12px; color: var(--ink); }
+  .nav-mark svg { width: 30px; height: 30px; }
+  .nav-mark-text { display:flex; flex-direction:column; line-height:1; }
+  .nav-mark-text b {
+    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: .04em;
+    color: var(--ink);
+  }
+  .nav-mark-text small {
+    font-size: 8px;
+    letter-spacing: .42em;
+    font-weight: 500;
+    margin-top: 3px;
+    color: var(--mist);
+  }
+  .nav-menu {
+    display:flex;
+    gap: 38px;
+    list-style:none;
+  }
+  .nav-menu a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    position: relative;
+    padding: 8px 0;
+  }
+  .nav-menu a::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0;
+    height:1px; background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t);
+  }
+  .nav-menu a:hover::after { transform: scaleX(1); }
+  .nav-tools {
+    display:flex;
+    align-items:center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .tool {
+    width: 42px; height: 42px;
+    display:inline-flex; align-items:center; justify-content:center;
+    color: var(--ink);
+    position: relative;
+    border-radius: 50%;
+    transition: background var(--t);
+  }
+  .tool:hover { background: rgba(0,0,0,.05); }
+  .tool svg { width:18px; height: 18px; }
+  .nav-wa {
+    display:inline-flex; align-items:center; gap: 8px;
+    margin-left: 6px;
+    padding: 10px 16px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    transition: all var(--t);
+    text-decoration: none;
+  }
+  .nav-wa svg { width: 14px; height: 14px; }
+  .nav-wa:hover { background: var(--ink); color: var(--silver); }
+  @media (max-width: 760px){
+    .nav-wa span { display:none; }
+    .nav-wa { padding: 10px; }
+  }
+  .menu-toggle { display:none; }
+
+  @media (max-width: 900px) {
+    .nav-menu { display:none; }
+    nav.bar { grid-template-columns: 1fr auto; }
+    .nav-tools { gap: 0; }
+    .menu-toggle { display:inline-flex; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: clamp(40px, 7vw, 100px) 0 clamp(60px, 9vw, 140px);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(40px, 5vw, 96px);
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+  }
+  .hero-text .eyebrow { margin-bottom: 28px; display:flex; align-items:center; gap:14px; }
+  .hero-text .eyebrow::before {
+    content:""; width: 32px; height: 1px; background: var(--mist);
+  }
+  .hero-text h1 {
+    font-size: clamp(48px, 8.8vw, 116px);
+    letter-spacing: -0.04em;
+  }
+  .hero-text h1 span { display:block; }
+  .hero-text h1 .it {
+    font-style: italic;
+    font-weight: 200;
+    color: var(--ink-soft);
+  }
+  .hero-sub {
+    margin: 32px 0 40px;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: clamp(15px, 1.15vw, 17px);
+    line-height: 1.7;
+  }
+  .hero-ctas { display:flex; gap: 16px; align-items:center; flex-wrap:wrap; }
+
+  /* Buttons */
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap: 10px;
+    padding: 16px 28px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--silver);
+    transition: all var(--t);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn:hover { background: transparent; color: var(--ink); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.ghost:hover { background: var(--ink); color: var(--silver); }
+  .btn.link {
+    border: none;
+    background: transparent;
+    color: var(--ink);
+    padding: 16px 0;
+  }
+  .btn.link::after {
+    content: ""; width: 24px; height: 1px; background: currentColor;
+    transition: width var(--t);
+  }
+  .btn.link:hover::after { width: 40px; }
+  .btn.invert { background: var(--silver); color: var(--ink); border-color: var(--silver); }
+  .btn.invert:hover { background: transparent; color: var(--silver); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: var(--silver-2);
+    overflow: hidden;
+  }
+  .hero-visual::before {
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(60% 50% at 50% 38%, rgba(255,255,255,.85), transparent 70%),
+      linear-gradient(180deg, var(--silver-2) 0%, #dcdcdc 100%);
+  }
+  .hero-stage {
+    position:absolute; inset:0;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom: 6%;
+  }
+  .candle-stage {
+    width: 60%;
+    max-width: 320px;
+    aspect-ratio: 1/1.5;
+    position: relative;
+    transform: scale(var(--hero-flame-scale));
+    transform-origin: bottom center;
+    transition: transform .6s var(--ease);
+  }
+  /* Flame */
+  .flame-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 92%;
+    width: 36px;
+    height: 60px;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    animation: flameSway 3.4s var(--ease) infinite;
+    filter: drop-shadow(0 -6px 10px rgba(255, 220, 160, .35));
+  }
+  .flame {
+    position:absolute; left:50%; bottom:0;
+    width: 22px; height: 50px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg,
+      #fff6dd 0%,
+      #ffd793 28%,
+      #f3a743 65%,
+      #6b3a14 100%);
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    animation: flameFlicker 1.3s ease-in-out infinite alternate;
+    mix-blend-mode: multiply;
+    opacity: .82;
+  }
+  .flame::after {
+    content:"";
+    position:absolute; inset: 18% 20% 4% 20%;
+    background: linear-gradient(180deg, #fff, #ffd687 60%, #c1742a);
+    border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
+    opacity: .6;
+  }
+  .wick {
+    position:absolute; left:50%; bottom: -10px;
+    width: 2px; height: 14px;
+    background: var(--ink);
+    transform: translateX(-50%);
+    border-radius: 1px;
+  }
+  @keyframes flameSway {
+    0%,100% { transform: translateX(-50%) rotate(-2deg); }
+    50%     { transform: translateX(-50%) rotate(2.5deg); }
+  }
+  @keyframes flameFlicker {
+    0%   { transform: translateX(-50%) scale(1, 1); }
+    100% { transform: translateX(-50%) scale(1.04, .96); }
+  }
+
+  /* Jar SVG host */
+  .jar {
+    position:absolute; inset:0;
+  }
+
+  /* Floating tag in hero */
+  .hero-tag {
+    position:absolute;
+    top: 28px; left: 28px;
+    background: var(--ink);
+    color: var(--silver);
+    padding: 10px 14px;
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .hero-corner {
+    position:absolute;
+    bottom: 28px; right: 28px;
+    color: var(--ink);
+    display:flex; align-items:center; gap: 10px;
+    font-size: 11px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .hero-corner .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%     { opacity: .4; transform: scale(1.5); }
+  }
+
+  /* Scroll cue */
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    display:flex; flex-direction:column; align-items:center; gap: 12px;
+    color: var(--mist);
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+  }
+  .scroll-cue .bar {
+    width: 1px; height: 56px;
+    background: linear-gradient(to bottom, transparent, var(--ink) 50%, transparent);
+    background-size: 100% 200%;
+    animation: scrollBar 2.4s ease-in-out infinite;
+  }
+  @keyframes scrollBar {
+    0%   { background-position: 0 -100%; }
+    100% { background-position: 0 100%; }
+  }
+  @media (max-width:900px){ .scroll-cue { display:none; } }
+
+  /* ============ FRAGRANCE STRIP (small features) ============ */
+  .strip {
+    border-top: 1px solid rgba(0,0,0,.08);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    padding: 28px 0;
+    background: var(--silver);
+  }
+  .strip-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+  }
+  @media (max-width:760px){ .strip-grid { grid-template-columns: repeat(2,1fr); gap: 18px; } }
+  .strip-item {
+    display:flex; align-items:center; gap: 14px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500;
+  }
+  .strip-item svg { width: 22px; height: 22px; color: var(--ink); flex-shrink:0; }
+
+  /* ============ MANIFESTO / DIFFERENTIALS ============ */
+  .manifesto {
+    background: var(--ink);
+    color: var(--silver);
+    padding: clamp(80px, 12vw, 160px) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .manifesto h2 { color: var(--silver); }
+  .manifesto-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 100px);
+    margin-bottom: clamp(60px, 8vw, 110px);
+    align-items: end;
+  }
+  @media (max-width:900px){ .manifesto-grid { grid-template-columns:1fr; gap: 30px; } }
+  .manifesto-grid .eyebrow { color: var(--mist); margin-bottom: 18px; }
+  .manifesto-grid p {
+    color: var(--mist-soft);
+    font-size: clamp(15px, 1.15vw, 18px);
+    line-height: 1.75;
+    max-width: 44ch;
+  }
+  .manifesto-features {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  @media (max-width: 900px){ .manifesto-features { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px){ .manifesto-features { grid-template-columns: 1fr; } }
+  .feature {
+    padding: 48px 36px;
+    border-right: 1px solid rgba(255,255,255,.12);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    transition: background var(--t);
+    cursor: default;
+  }
+  .feature:hover { background: rgba(255,255,255,.04); }
+  .feature:nth-child(3n){ border-right:none; }
+  @media (max-width: 900px){
+    .feature:nth-child(3n){ border-right: 1px solid rgba(255,255,255,.12); }
+    .feature:nth-child(2n){ border-right:none; }
+  }
+  @media (max-width: 540px){
+    .feature { border-right:none !important; }
+  }
+  .feature-no {
+    font-size: 11px; letter-spacing: .25em;
+    color: var(--mist);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .feature-icon {
+    width: 36px; height: 36px;
+    color: var(--silver);
+    margin-bottom: 26px;
+  }
+  .feature h3 {
+    font-weight: 300;
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: var(--silver);
+    letter-spacing: -.01em;
+  }
+  .feature p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--mist-soft);
+  }
+
+  /* ============ COLECAO ============ */
+  .colecao {
+    padding: clamp(80px, 12vw, 160px) 0;
+  }
+  .colecao-head {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 5vw, 100px);
+    margin-bottom: clamp(50px, 7vw, 90px);
+    align-items: end;
+  }
+  @media (max-width:900px){ .colecao-head { grid-template-columns:1fr; gap: 24px; } }
+  .colecao-head .eyebrow { margin-bottom: 20px; }
+  .filter-row {
+    display:flex; gap: 4px; align-items:center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .chip {
+    padding: 10px 18px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink-soft);
+    border: 1px solid transparent;
+    transition: all var(--t);
+  }
+  .chip:hover { color: var(--ink); }
+  .chip.active {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .product-grid {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(0,0,0,.06);
+    border: 1px solid rgba(0,0,0,.06);
+  }
+  @media (max-width: 900px){ .product-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 540px){ .product-grid { grid-template-columns: 1fr; } }
+
+  .product {
+    background: var(--silver);
+    padding: 32px 32px 28px;
+    display:flex; flex-direction:column;
+    position:relative;
+    transition: background var(--t);
+    cursor: pointer;
+  }
+  .product:hover { background: var(--white); }
+  .product[data-vibe="dark"] {
+    background: #2b2b2b;
+    color: var(--silver);
+  }
+  .product[data-vibe="dark"]:hover { background: var(--ink); }
+  .product[data-vibe="dark"] .product-name { color: var(--silver); }
+  .product[data-vibe="dark"] .product-desc,
+  .product[data-vibe="dark"] .product-meta,
+  .product[data-vibe="dark"] .product-volume,
+  .product[data-vibe="dark"] .product-notes { color: var(--mist); }
+  .product[data-vibe="dark"] .product-more { color: var(--silver); }
+  .product[data-vibe="dark"] .product-foot { border-top-color: rgba(255,255,255,.12); }
+
+  .product-figure {
+    aspect-ratio: 1/1.05;
+    margin: 4px 0 32px;
+    display:flex; align-items:flex-end; justify-content:center;
+    position: relative;
+  }
+  .product-figure svg { width: 65%; height: 95%; transition: transform .7s var(--ease); }
+  .product:hover .product-figure svg { transform: translateY(-6px) scale(1.04); }
+
+  .product-meta { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--mist); margin-bottom: 8px; font-weight: 500; }
+  .product-name { font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 6px; letter-spacing: -.01em; }
+  .product-notes { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--mist); margin-bottom: 18px; font-weight: 400; }
+  .product-desc { font-size: 13px; line-height: 1.6; color: var(--ink-soft); margin-bottom: 24px; }
+
+  .product-foot {
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0,0,0,.08);
+  }
+  .product-volume {
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--mist); font-weight: 500;
+  }
+  .product-more {
+    display:inline-flex; align-items:center; gap: 10px;
+    font-size: 10px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--ink); font-weight: 500;
+    transition: gap var(--t);
+  }
+  .product:hover .product-more { gap: 16px; }
+  .product-more svg { width: 14px; height: 14px; }
+
+  /* ============ ABOUT ============ */
+  .about {
+    padding: clamp(80px, 12vw, 160px) 0;
+    background: var(--silver-2);
+  }
+  .about-grid {
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(50px, 7vw, 120px);
+    align-items: center;
+  }
+  @media (max-width: 900px){ .about-grid { grid-template-columns: 1fr; gap: 50px; } }
+  .about-text .eyebrow { margin-bottom: 22px; }
+  .about-text h2 { margin-bottom: 32px; }
+  .about-text p { margin-bottom: 18px; font-size: 15px; line-height: 1.75; color: var(--ink-soft); max-width: 48ch; }
+  .about-text p:last-of-type { margin-bottom: 0; }
+
+  .timeline {
+    margin-top: 56px;
+    display:flex;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .tline {
+    flex: 1;
+    border-top: 1px solid var(--ink);
+    padding-top: 14px;
+    position: relative;
+  }
+  .tline::before {
+    content:""; position:absolute; top: -4px; left: 0;
+    width: 7px; height: 7px; background: var(--ink);
+    border-radius: 50%;
+  }
+  .tline b { font-weight: 500; font-size: 14px; letter-spacing: .15em; color: var(--ink); display:block; margin-bottom: 4px; }
+  .tline span { font-size: 12px; color: var(--mist); }
+
+  .about-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: var(--ink);
+    color: var(--silver);
+    overflow: hidden;
+  }
+  .about-pattern {
+    position:absolute; inset:0;
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 1fr;
+    opacity: .14;
+    align-content:start;
+  }
+  .about-pattern span {
+    display:flex; align-items:center; justify-content:center;
+    aspect-ratio: 1/1;
+    font-size: 9px;
+    letter-spacing: .25em;
+    color: var(--silver);
+    border: 1px solid rgba(255,255,255,.15);
+    border-top: none;
+    border-left: none;
+    transform: rotate(-12deg);
+  }
+  .about-stamp {
+    position:absolute; inset: 0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 36px;
+  }
+  .about-stamp svg { width: 84px; height: 84px; opacity: .88; margin-bottom: 26px; }
+  .about-stamp b { font-size: 14px; letter-spacing: .4em; font-weight: 400; color: var(--silver); display:block; margin-bottom: 6px; }
+  .about-stamp small { font-size: 10px; letter-spacing: .35em; color: var(--mist); }
+  .about-stamp em {
+    margin-top: 28px;
+    font-style: normal;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--mist-soft);
+    max-width: 28ch;
+    line-height: 1.65;
+  }
+
+  /* ============ PROCESS ============ */
+  .process {
+    padding: clamp(80px, 12vw, 160px) 0;
+    background: var(--silver);
+  }
+  .process-head { display:flex; justify-content: space-between; align-items: end; margin-bottom: 70px; gap: 32px; flex-wrap:wrap; }
+  .process-head .eyebrow { margin-bottom: 18px; }
+
+  .process-line {
+    position: relative;
+    margin-top: 24px;
+  }
+  .process-line .axis {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0,0,0,.12);
+  }
+  .process-line .axis::after {
+    content:"";
+    position: absolute;
+    top:0; left: 0;
+    height: 100%;
+    background: var(--ink);
+    width: 0;
+    transition: width 1.8s var(--ease);
+  }
+  .process-line.in-view .axis::after { width: 100%; }
+
+  .steps {
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px){ .steps { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px){ .steps { grid-template-columns: 1fr 1fr; } }
+  .step {
+    position:relative;
+    padding-top: 48px;
+  }
+  .step .dot {
+    position:absolute;
+    top: 10px;
+    left: 0;
+    width: 17px; height: 17px;
+    background: var(--silver);
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    transition: all var(--t);
+  }
+  .process-line.in-view .step .dot { background: var(--ink); }
+  .step b {
+    display:block;
+    font-size: 11px;
+    letter-spacing: .25em;
+    color: var(--mist);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .step h4 {
+    font-size: 19px;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -.01em;
+  }
+  .step p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ============ EDITORIAL QUOTE ============ */
+  .editorial {
+    padding: clamp(80px, 12vw, 160px) 0;
+    background: var(--white);
+  }
+  .editorial-grid {
+    display:grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: center;
+  }
+  @media (max-width: 900px){ .editorial-grid { grid-template-columns: 1fr; } }
+  .quote-card {
+    aspect-ratio: 4/5;
+    background: var(--silver);
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-card svg.frasco { position:absolute; right: -8%; bottom: -4%; width: 70%; opacity: .9;}
+  .quote-card-tag {
+    position:absolute;
+    top: 26px; left: 26px;
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .quote-card-tag::before {
+    content:""; display:inline-block;
+    width: 24px; height: 1px; background: var(--ink);
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+  .editorial-text blockquote {
+    font-weight: 200;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    margin: 0 0 36px;
+    text-wrap: balance;
+  }
+  .editorial-text blockquote span.it { font-style: italic; font-weight: 300; }
+  .editorial-text cite {
+    font-style: normal;
+    display:flex; align-items:center; gap: 14px;
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--mist);
+    font-weight: 500;
+  }
+  .editorial-text cite::before {
+    content:""; width: 30px; height: 1px; background: var(--mist);
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .testi {
+    background: var(--ink);
+    color: var(--silver);
+    padding: clamp(80px, 12vw, 160px) 0;
+  }
+  .testi h2 { color: var(--silver); margin-bottom: 60px; }
+  .testi-head { display:flex; justify-content: space-between; align-items: end; flex-wrap:wrap; gap: 32px; margin-bottom: 60px; }
+  .testi-head .eyebrow { color: var(--mist); margin-bottom: 18px; }
+  .rating {
+    display:flex; align-items:center; gap: 18px;
+    color: var(--silver); font-size: 13px; letter-spacing: .15em;
+  }
+  .rating-stars { display:flex; gap: 2px; }
+  .rating-stars svg { width: 14px; height: 14px; fill: currentColor; }
+
+  .testi-grid {
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.12);
+  }
+  @media (max-width: 900px){ .testi-grid { grid-template-columns: 1fr; } }
+  .testi-card {
+    background: var(--ink);
+    padding: 44px 36px;
+    transition: background var(--t);
+  }
+  .testi-card:hover { background: #262626; }
+  .testi-card .stars { color: var(--silver); display:flex; gap: 3px; margin-bottom: 24px; }
+  .testi-card .stars svg { width: 13px; height: 13px; fill: currentColor; }
+  .testi-card q {
+    quotes: none;
+    display:block;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--silver);
+    margin-bottom: 36px;
+    letter-spacing: -.005em;
+  }
+  .testi-author { display:flex; align-items:center; gap: 14px; }
+  .avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--mist);
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 300;
+    color: var(--silver);
+  }
+  .testi-author b { display:block; font-size: 14px; font-weight: 400; color: var(--silver); }
+  .testi-author span { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--mist); display:inline-flex; align-items:center; gap: 6px; }
+  .testi-author span::after {
+    content:""; width: 8px; height: 8px;
+    border-radius:50%;
+    border: 1px solid var(--mist);
+    background: radial-gradient(var(--mist) 35%, transparent 38%);
+  }
+
+  /* ============ NEWSLETTER ============ */
+  .news {
+    background: var(--black);
+    color: var(--silver);
+    padding: clamp(80px, 14vw, 160px) 0;
+    position:relative;
+    overflow: hidden;
+  }
+  .news-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: end;
+  }
+  @media (max-width: 900px){ .news-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .news h2 {
+    font-weight: 100;
+    color: var(--silver);
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -.02em;
+  }
+  .news h2 .it { font-style: italic; font-weight: 200; color: var(--mist); }
+  .news-body { color: var(--mist-soft); font-size: 15px; line-height: 1.7; margin-bottom: 36px; max-width: 40ch; }
+
+  .news-form {
+    display:flex;
+    border-bottom: 1px solid var(--silver);
+    align-items: center;
+    transition: border-color var(--t);
+  }
+  .news-form.focus { border-color: var(--white); }
+  .news-form input {
+    flex:1;
+    background: transparent;
+    border: none;
+    color: var(--silver);
+    padding: 18px 0;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: inherit;
+    outline: none;
+  }
+  .news-form input::placeholder { color: var(--mist); }
+  .news-form button {
+    color: var(--silver);
+    padding: 18px 12px;
+    font-size: 11px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display:inline-flex; align-items:center; gap: 12px;
+    transition: gap var(--t);
+  }
+  .news-form button:hover { gap: 20px; }
+  .news-fine { font-size: 11px; color: var(--mist); margin-top: 22px; letter-spacing: .1em; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--black);
+    color: var(--silver);
+    padding: clamp(60px, 8vw, 100px) 0 28px;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-grid {
+    display:grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+  @media (max-width: 900px){ .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; } }
+  @media (max-width: 540px){ .footer-grid { grid-template-columns: 1fr; } }
+
+  .footer-brand p {
+    color: var(--mist-soft);
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 30ch;
+    margin-top: 18px;
+  }
+  .footer-brand .nav-mark-text b { color: var(--silver); }
+  .footer-brand .nav-mark svg { color: var(--silver); }
+  .footer-col h5 {
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--silver);
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 13px;
+    color: var(--mist);
+    transition: color var(--t);
+  }
+  .footer-col a:hover { color: var(--silver); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 28px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .footer-bottom small { color: var(--mist); font-size: 11px; letter-spacing: .15em; }
+  .socials { display:flex; gap: 6px; }
+  .socials a {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    color: var(--silver);
+    transition: all var(--t);
+  }
+  .socials a:hover { background: var(--silver); color: var(--ink); border-color: var(--silver); }
+  .socials svg { width: 14px; height: 14px; }
+
+  /* ============ CART DRAWER ============ */
+  .scrim {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.4);
+    z-index: 90;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t);
+  }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+
+  .drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(440px, 100%);
+    height: 100%;
+    background: var(--silver);
+    z-index: 100;
+    transform: translateX(100%);
+    transition: transform .5s var(--ease);
+    display:flex; flex-direction:column;
+    box-shadow: -20px 0 50px rgba(0,0,0,.12);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    display:flex; justify-content: space-between; align-items: center;
+    padding: 28px 32px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .drawer-head h3 { font-weight: 300; font-size: 22px; color: var(--ink); letter-spacing: -.01em; }
+  .drawer-head .meta { color: var(--mist); }
+  .close-btn {
+    width: 36px; height: 36px;
+    display:inline-flex; align-items:center; justify-content:center;
+    color: var(--ink);
+  }
+  .close-btn:hover { transform: rotate(90deg); }
+  .close-btn { transition: transform var(--t); }
+
+  .drawer-body { flex:1; overflow-y: auto; padding: 0 32px; }
+  .cart-empty {
+    padding: 80px 0;
+    text-align: center;
+    color: var(--mist);
+    font-size: 14px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .cart-empty svg { margin: 0 auto 24px; width: 40px; height: 40px; color: var(--mist); }
+
+  .cart-line {
+    display:grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+  .cart-line-thumb {
+    width: 80px; height: 96px;
+    background: var(--silver-2);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cart-line-thumb svg { width: 65%; height: 80%; }
+  .cart-line h4 { font-weight: 400; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+  .cart-line .meta { color: var(--mist); margin-bottom: 12px; }
+  .qty { display:flex; align-items:center; gap: 6px; }
+  .qty button {
+    width: 26px; height: 26px;
+    border: 1px solid rgba(0,0,0,.18);
+    color: var(--ink);
+    font-size: 12px;
+    transition: all var(--t);
+  }
+  .qty button:hover { background: var(--ink); color: var(--silver); border-color: var(--ink); }
+  .qty span { min-width: 22px; text-align: center; font-size: 13px; }
+  .cart-line-right { display:flex; flex-direction:column; align-items: flex-end; gap: 14px; }
+  .cart-line-right b { font-weight: 500; font-size: 15px; color: var(--ink); }
+  .cart-line-right .remove {
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--mist); font-weight: 500;
+  }
+  .cart-line-right .remove:hover { color: var(--ink); }
+
+  .drawer-foot {
+    padding: 24px 32px 32px;
+    border-top: 1px solid rgba(0,0,0,.08);
+    background: var(--white);
+  }
+  .totals { display:flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: var(--ink-soft); }
+  .totals.big { font-size: 17px; font-weight: 500; color: var(--ink); margin: 18px 0 24px; }
+  .drawer-foot .btn { width:100%; }
+
+  /* ============ PRODUCT MODAL ============ */
+  .modal {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 110;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+  .modal.open { opacity: 1; pointer-events: auto; }
+  .modal-card {
+    background: var(--silver);
+    width: min(960px, 100%);
+    max-height: 88vh;
+    overflow: hidden;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    transform: translateY(20px);
+    transition: transform .5s var(--ease);
+    box-shadow: 0 24px 80px rgba(0,0,0,.3);
+  }
+  .modal.open .modal-card { transform: translateY(0); }
+  @media (max-width: 700px){
+    .modal-card { grid-template-columns: 1fr; max-height: 94vh; overflow:auto; }
+  }
+  .modal-figure {
+    aspect-ratio: 4/5;
+    background: var(--silver-2);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .modal-figure svg { width: 60%; height: 78%; }
+  .modal-figure .modal-close {
+    position:absolute; top: 18px; right: 18px;
+    width: 36px; height: 36px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background: var(--silver);
+    color: var(--ink);
+    border-radius: 50%;
+  }
+  .modal-figure .modal-close:hover { transform: rotate(90deg); }
+  .modal-close { transition: transform var(--t); }
+
+  .modal-info { padding: 44px 40px; overflow:auto; }
+  .modal-info .meta { margin-bottom: 8px; }
+  .modal-info h3 { font-weight: 200; font-size: 38px; margin-bottom: 18px; color: var(--ink); letter-spacing: -.015em; }
+  .modal-info > p.lede { margin-bottom: 28px; font-size: 14px; }
+  .modal-notes { margin-bottom: 28px; }
+  .modal-notes h6 { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--mist); font-weight: 500; margin-bottom: 14px; }
+  .modal-notes .pyramid { display:grid; grid-template-columns: 1fr; gap: 8px; }
+  .modal-notes .row { display:grid; grid-template-columns: 80px 1fr; align-items:center; gap: 12px; }
+  .modal-notes .row b { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
+  .modal-notes .row span { font-size: 13px; color: var(--ink-soft); }
+  .modal-specs {
+    display:grid; grid-template-columns: repeat(2,1fr);
+    border-top: 1px solid rgba(0,0,0,.08);
+    margin-bottom: 30px;
+  }
+  .modal-specs div { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .modal-specs div:nth-child(odd){ border-right: 1px solid rgba(0,0,0,.08); padding-right: 14px;}
+  .modal-specs div:nth-child(even){ padding-left: 14px;}
+  .modal-specs small { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--mist); display:block; margin-bottom: 4px; font-weight: 500; }
+  .modal-specs b { font-size: 14px; font-weight: 400; color: var(--ink); }
+  .modal-action { display:flex; gap: 12px; align-items: center; }
+  .modal-action .price { font-size: 24px; font-weight: 400; color: var(--ink); }
+  .modal-action .btn { flex:1; }
+
+  /* ============ REVEAL ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .9s var(--ease), transform .9s var(--ease);
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .7s var(--ease), transform .7s var(--ease);
+  }
+  .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in-view > *:nth-child(1){ transition-delay: 0s; }
+  .reveal-stagger.in-view > *:nth-child(2){ transition-delay: .08s; }
+  .reveal-stagger.in-view > *:nth-child(3){ transition-delay: .16s; }
+  .reveal-stagger.in-view > *:nth-child(4){ transition-delay: .24s; }
+  .reveal-stagger.in-view > *:nth-child(5){ transition-delay: .32s; }
+  .reveal-stagger.in-view > *:nth-child(6){ transition-delay: .40s; }
+
+  /* Hide horizontal scroll polluting */
+  .no-scroll { overflow: hidden; }
+
+  /* Tweaks panel host */
+  #tweaks-root { position: fixed; inset: auto 0 0 auto; z-index: 9999; }
+</style>
+</head>
+<body>
+
+<!-- =================== TICKER =================== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>
+      Feitas à mão em São Paulo <i>·</i>
+      Cera de soja 100% natural <i>·</i>
+      Óleos essenciais puros <i>·</i>
+      Pequenos lotes · alma artesã <i>·</i>
+      Queima 40–50 horas <i>·</i>
+      Embalagem reciclável <i>·</i>
+      Feitas à mão em São Paulo <i>·</i>
+      Cera de soja 100% natural <i>·</i>
+      Óleos essenciais puros <i>·</i>
+      Pequenos lotes · alma artesã <i>·</i>
+      Queima 40–50 horas <i>·</i>
+      Embalagem reciclável <i>·</i>
+    </span>
+  </div>
+</div>
+
+<!-- =================== NAV =================== -->
+<header id="nav">
+  <div class="wrap">
+    <nav class="bar" aria-label="Principal">
+      <a href="#top" class="nav-mark" aria-label="Light Soul — Início">
+        <!-- LOGO: droplet inside crescent + horizontal base lines -->
+        <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true">
+          <!-- crescent / arc -->
+          <path d="M14 30 a16 16 0 0 0 32 0" />
+          <path d="M10 30 a20 20 0 0 1 40 0" opacity=".0"/>
+          <!-- droplet -->
+          <path d="M30 16 C24 24 24 32 30 36 C36 32 36 24 30 16 Z" />
+          <!-- inner accent -->
+          <line x1="30" y1="22" x2="30" y2="30" stroke-width=".7" opacity=".7"/>
+          <!-- base lines -->
+          <line x1="12" y1="44" x2="48" y2="44" opacity=".55"/>
+          <line x1="18" y1="48" x2="42" y2="48" opacity=".35"/>
+        </svg>
+        <span class="nav-mark-text">
+          <b>light&nbsp;·&nbsp;soul</b>
+          <small>AROMAS</small>
+        </span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#fragrancias">Fragrâncias</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+
+      <div class="nav-tools">
+        <button class="tool" aria-label="Buscar" data-action="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button class="tool" aria-label="Favoritos" id="fav-tool">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <a class="nav-wa" id="nav-wa" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.1 4.9A10 10 0 0 0 4.5 18.3L3 22l3.8-1.5A10 10 0 1 0 19.1 4.9zm-7 16.2a8.3 8.3 0 0 1-4.2-1.2l-.3-.2-2.4 1 1-2.3-.2-.3a8.3 8.3 0 1 1 6.1 3zm4.6-6.3c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.2.1-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.4.1-.6l.4-.4c.1-.2.2-.3.3-.5.1-.2 0-.3 0-.5l-.7-1.8c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2 0 1.3.9 2.6 1 2.8.1.2 1.8 2.7 4.4 3.8.6.3 1.1.4 1.5.6.6.2 1.2.2 1.7.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <button class="tool menu-toggle" aria-label="Menu" id="mobile-menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 7h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== HERO =================== -->
+<section id="top" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text reveal">
+        <div class="eyebrow">Velas artesanais &nbsp;·&nbsp; coleção atual</div>
+        <h1 class="display">
+          <span>Aromas que</span>
+          <span>despertam</span>
+          <span class="it">a alma.</span>
+        </h1>
+        <p class="hero-sub">Cera natural. Óleos essenciais puros. Pequenos lotes feitos à mão, cada vela curada como um objeto único de cuidado e atenção.</p>
+        <div class="hero-ctas">
+          <a href="#fragrancias" class="btn">Conheça os aromas</a>
+          <a href="#sobre" class="btn link">Nossa história</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" data-delay="120">
+        <div class="hero-tag">N° 06 &nbsp;·&nbsp; 2026</div>
+        <div class="hero-corner"><span class="dot"></span><span>aceso agora</span></div>
+        <div class="hero-stage">
+          <div class="candle-stage">
+            <!-- Flame -->
+            <div class="flame-wrap">
+              <div class="wick"></div>
+              <div class="flame"></div>
+            </div>
+            <!-- Jar: clear glass with cream wax -->
+            <svg class="jar" viewBox="0 0 200 300" fill="none" stroke="#1a1a1a" stroke-width="1.1" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+              <defs>
+                <linearGradient id="wax" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#f3e4c4"/>
+                  <stop offset="1" stop-color="#cba872"/>
+                </linearGradient>
+                <linearGradient id="glass" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity=".22"/>
+                  <stop offset=".5" stop-color="#ffffff" stop-opacity="0"/>
+                  <stop offset="1" stop-color="#000000" stop-opacity=".05"/>
+                </linearGradient>
+              </defs>
+              <!-- jar body -->
+              <path d="M40 90 L40 280 Q40 290 50 290 L150 290 Q160 290 160 280 L160 90 Z" fill="#ffffff" fill-opacity=".4"/>
+              <path d="M40 90 L40 280 Q40 290 50 290 L150 290 Q160 290 160 280 L160 90 Z" fill="url(#glass)"/>
+              <!-- wax line -->
+              <line x1="40" y1="118" x2="160" y2="118" stroke-width=".7" opacity=".55"/>
+              <rect x="40" y="118" width="120" height="172" fill="url(#wax)" opacity=".82"/>
+              <!-- rim -->
+              <rect x="36" y="84" width="128" height="10" rx="1" fill="#fff" fill-opacity=".55"/>
+              <line x1="36" y1="94" x2="164" y2="94" stroke-width=".8"/>
+              <!-- label -->
+              <rect x="64" y="180" width="72" height="76" fill="#fff" stroke="#1a1a1a" stroke-width=".4"/>
+              <line x1="72" y1="196" x2="128" y2="196" stroke="#1a1a1a" stroke-width=".4"/>
+              <text x="100" y="212" text-anchor="middle" font-family="Roboto" font-size="6.5" font-weight="500" letter-spacing="2.5" fill="#1a1a1a">LIGHT SOUL</text>
+              <text x="100" y="232" text-anchor="middle" font-family="Roboto" font-size="9" font-weight="300" fill="#1a1a1a" font-style="italic">vanilla</text>
+              <line x1="80" y1="244" x2="120" y2="244" stroke="#1a1a1a" stroke-width=".3"/>
+              <text x="100" y="252" text-anchor="middle" font-family="Roboto" font-size="4.5" font-weight="400" letter-spacing="1.5" fill="#666">N° 01 · 200G</text>
+              <!-- shadow at bottom -->
+              <ellipse cx="100" cy="294" rx="62" ry="3" fill="#000" opacity=".18"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span>role</span>
+      <div class="bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== STRIP =================== -->
+<section class="strip">
+  <div class="wrap">
+    <div class="strip-grid">
+      <div class="strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c0 4-3 6-3 10a3 3 0 0 0 6 0c0-4-3-6-3-10z"/></svg>
+        100% Cera natural
+      </div>
+      <div class="strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13c2-4 5-9 7-10 2 1 5 6 7 10a7 7 0 1 1-14 0z"/></svg>
+        Óleos essenciais puros
+      </div>
+      <div class="strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 18V8a2 2 0 0 1 4 0v10"/><path d="M15 12V6a2 2 0 0 1 4 0v12"/></svg>
+        Feitas à mão
+      </div>
+      <div class="strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Queima 40–50h
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MANIFESTO =================== -->
+<section class="manifesto">
+  <div class="wrap">
+    <div class="manifesto-grid">
+      <div class="reveal">
+        <div class="eyebrow">A casa</div>
+        <h2 class="section-title">Pequenos lotes, intenção&nbsp;real.</h2>
+      </div>
+      <p class="reveal" data-delay="100">A Light Soul nasceu de uma obsessão pessoal por aroma. Cada vela é desenvolvida em pequenos lotes, com ingredientes selecionados, tempo de cura e teste rigoroso. Sem atalhos, sem fragrâncias sintéticas — apenas matéria viva, transformada com paciência.</p>
+    </div>
+
+    <div class="manifesto-features reveal-stagger">
+      <article class="feature">
+        <div class="feature-no">01 / 06</div>
+        <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4c-4 6-8 9-8 14a8 8 0 0 0 16 0c0-5-4-8-8-14z"/>
+          <path d="M16 14v8"/><path d="M13 18l3 3 3-3"/>
+        </svg>
+        <h3>100% Natural</h3>
+        <p>Cera vegetal de soja sustentável, livre de parafina e químicos agressivos. Apenas ingredientes puros e biodegradáveis.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-no">02 / 06</div>
+        <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5c-1 5-5 8-5 13a5 5 0 1 0 10 0c0-5-4-8-5-13z" transform="translate(4 0)"/>
+          <path d="M9 22c2-1 4-1 6 0"/>
+        </svg>
+        <h3>Óleos essenciais</h3>
+        <p>Combinações curadas com óleos terapêuticos importados, certificados e dosados em proporções precisas.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-no">03 / 06</div>
+        <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 18V8a2 2 0 0 1 4 0v10"/>
+          <path d="M15 12V6a2 2 0 0 1 4 0v12"/>
+          <path d="M19 11V8a2 2 0 0 1 4 0v15a5 5 0 0 1-5 5h-4l-5-5-3-6a2 2 0 0 1 3-2l2 2"/>
+        </svg>
+        <h3>Feitas à mão</h3>
+        <p>Da mistura ao acabamento, cada etapa é manual. Sem automação, com a presença de quem fabrica em cada vela.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-no">04 / 06</div>
+        <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 10l11-5 11 5-11 5z"/>
+          <path d="M5 10v12l11 5 11-5V10"/>
+          <path d="M16 15v12"/>
+        </svg>
+        <h3>Embalagem responsável</h3>
+        <p>Vidros reutilizáveis, papel reciclado e tintas vegetais. A vida útil do objeto continua depois que a chama termina.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-no">05 / 06</div>
+        <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="16" cy="16" r="11"/>
+          <path d="M16 9v7l4 3"/>
+        </svg>
+        <h3>Queima 40–50h</h3>
+        <p>Pavio de algodão, queima limpa e uniforme. Aroma constante do começo ao fim, sem fuligem nem ruído.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-no">06 / 06</div>
+        <svg class="feature-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="16" cy="16" r="11"/>
+          <circle cx="16" cy="16" r="6"/>
+          <circle cx="16" cy="16" r="1.5" fill="currentColor"/>
+        </svg>
+        <h3>Curada com propósito</h3>
+        <p>Cada fragrância nasce de uma intenção: calma, foco, presença, descanso. O aroma como ferramenta de estado.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FRAGRANCIAS =================== -->
+<section id="fragrancias" class="colecao">
+  <div class="wrap">
+    <div class="colecao-head">
+      <div class="reveal">
+        <div class="eyebrow">Fragrâncias &nbsp;·&nbsp; outono 2026</div>
+        <h2 class="section-title">Seis aromas.<br>Seis estados de presença.</h2>
+      </div>
+      <p class="lede reveal" data-delay="100">Cada vela carrega uma intenção, um momento, uma paisagem invisível. Explore as composições e descubra qual aroma desperta o que você procura agora.</p>
+    </div>
+
+    <div class="filter-row reveal" data-delay="150">
+      <button class="chip active" data-filter="all">Todas</button>
+      <button class="chip" data-filter="quente">Quentes</button>
+      <button class="chip" data-filter="fresco">Frescas</button>
+      <button class="chip" data-filter="floral">Florais</button>
+      <button class="chip" data-filter="amadeirado">Amadeiradas</button>
+    </div>
+
+    <div class="product-grid" id="product-grid"></div>
+  </div>
+</section>
+
+<!-- =================== EDITORIAL QUOTE =================== -->
+<section class="editorial">
+  <div class="wrap">
+    <div class="editorial-grid">
+      <div class="quote-card reveal">
+        <div class="quote-card-tag">N° 02 — Âmbar</div>
+        <svg class="frasco" viewBox="0 0 200 280" fill="none" stroke="#1a1a1a" stroke-width="1" aria-hidden="true">
+          <defs>
+            <linearGradient id="g-amb" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1a1a1a"/>
+              <stop offset="1" stop-color="#0a0a0a"/>
+            </linearGradient>
+          </defs>
+          <path d="M50 80 L50 250 Q50 260 60 260 L140 260 Q150 260 150 250 L150 80 Z" fill="url(#g-amb)"/>
+          <path d="M50 80 L50 250 Q50 260 60 260 L140 260 Q150 260 150 250 L150 80 Z" fill="#fff" fill-opacity=".06"/>
+          <rect x="46" y="74" width="108" height="9" fill="#1a1a1a"/>
+          <text x="100" y="190" text-anchor="middle" font-family="Roboto" font-size="6" letter-spacing="2.5" fill="#f1f1f1" font-weight="500">LIGHT SOUL</text>
+          <text x="100" y="210" text-anchor="middle" font-family="Roboto" font-size="9" fill="#f1f1f1" font-style="italic" font-weight="300">âmbar</text>
+        </svg>
+      </div>
+      <div class="editorial-text reveal" data-delay="100">
+        <blockquote>"Acender uma vela é declarar, em silêncio: <span class="it">eu mereço este momento.</span>"</blockquote>
+        <cite>Renata Linhares, Casa &amp; Forma</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SOBRE =================== -->
+<section id="sobre" class="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="eyebrow">Nossa história</div>
+        <h2 class="section-title">Começou como uma<br>obsessão&nbsp;pessoal.</h2>
+        <p>Em 2021, na cozinha de casa, começamos a derreter cera e testar combinações. Anotávamos sensações, conversávamos com amigos, refazíamos lotes. O que era experimento virou rotina, e o que era rotina virou pedido.</p>
+        <p>Três anos depois, mantemos o mesmo cuidado dos primeiros lotes. Cada vela Light Soul carrega o tempo de quem a fabricou — sem pressa, sem automação, sem atalhos. O aroma é memória, emoção, propósito. E cada vela merece ser tratada assim.</p>
+
+        <div class="timeline">
+          <div class="tline"><b>2021</b><span>Primeiros lotes</span></div>
+          <div class="tline"><b>2023</b><span>Ateliê próprio</span></div>
+          <div class="tline"><b>2026</b><span>Coleção atual</span></div>
+        </div>
+      </div>
+
+      <div class="about-visual reveal" data-delay="150">
+        <div class="about-pattern" id="about-pattern" aria-hidden="true"></div>
+        <div class="about-stamp">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round" aria-hidden="true">
+            <path d="M14 30 a16 16 0 0 0 32 0" />
+            <path d="M30 16 C24 24 24 32 30 36 C36 32 36 24 30 16 Z" />
+            <line x1="30" y1="22" x2="30" y2="30" stroke-width=".5" opacity=".7"/>
+            <line x1="12" y1="44" x2="48" y2="44" opacity=".55"/>
+            <line x1="18" y1="48" x2="42" y2="48" opacity=".35"/>
+          </svg>
+          <b>L · S</b>
+          <small>EST. 2021</small>
+          <em>"O aroma é a paisagem invisível de um lugar — e nós a desenhamos com cuidado."</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PROCESSO =================== -->
+<section id="processo" class="process">
+  <div class="wrap">
+    <div class="process-head">
+      <div class="reveal">
+        <div class="eyebrow">Processo</div>
+        <h2 class="section-title">Como fazemos<br>cada vela.</h2>
+      </div>
+      <p class="lede reveal" data-delay="100">Seis etapas, sem atalhos. Da escolha do ingrediente à embalagem final, cada lote passa pelas mãos da mesma pessoa que o iniciou.</p>
+    </div>
+
+    <div class="process-line" id="process-line">
+      <div class="axis"></div>
+      <div class="steps">
+        <div class="step"><span class="dot"></span><b>I</b><h4>Seleção</h4><p>Ceras e óleos testados e auditados, com origem rastreável.</p></div>
+        <div class="step"><span class="dot"></span><b>II</b><h4>Criação</h4><p>Combinações em pequenos lotes, anotando cada nuance.</p></div>
+        <div class="step"><span class="dot"></span><b>III</b><h4>Preparação</h4><p>Cera derretida a temperatura exata, óleo incorporado à mão.</p></div>
+        <div class="step"><span class="dot"></span><b>IV</b><h4>Cura</h4><p>48–72 horas de descanso para fixação do aroma.</p></div>
+        <div class="step"><span class="dot"></span><b>V</b><h4>Testes</h4><p>Cada lote tem queima e dispersão verificadas antes de sair.</p></div>
+        <div class="step"><span class="dot"></span><b>VI</b><h4>Embalagem</h4><p>Acabamento manual em papel reciclado e tinta vegetal.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TESTIMONIALS =================== -->
+<section class="testi">
+  <div class="wrap">
+    <div class="testi-head">
+      <div class="reveal">
+        <div class="eyebrow">Avaliações</div>
+        <h2 class="section-title">O que dizem<br>nossos clientes.</h2>
+      </div>
+      <div class="rating reveal" data-delay="100">
+        <div class="rating-stars">
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+        </div>
+        <span>4.9 / 5  ·  827 avaliações</span>
+      </div>
+    </div>
+
+    <div class="testi-grid reveal-stagger">
+      <div class="testi-card">
+        <div class="stars">
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+        </div>
+        <q>A queima é uniforme, o aroma sutil mas presente. Meu espaço virou outro lugar. Já estou na quinta compra — virou parte da rotina.</q>
+        <div class="testi-author">
+          <div class="avatar">M</div>
+          <div><b>Marina S.</b><br><span>cliente verificada</span></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars">
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+        </div>
+        <q>Decidi investir em qualidade e não me arrependi. Vanilla é reconfortante de verdade. Durabilidade impecável, vidro reutilizável muito chic.</q>
+        <div class="testi-author">
+          <div class="avatar">C</div>
+          <div><b>Carlos M.</b><br><span>cliente verificada</span></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars">
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 1.5l2 4.5 5 .4-3.8 3.3 1.2 4.8L8 12l-4.4 2.5 1.2-4.8L1 6.4l5-.4z"/></svg>
+        </div>
+        <q>Presente perfeito. Minha mãe ficou encantada. O Âmbar é sofisticado demais. Virou ritual em casa, uma compra que recomendo sem pensar.</q>
+        <div class="testi-author">
+          <div class="avatar">J</div>
+          <div><b>Juliana R.</b><br><span>cliente verificada</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== NEWSLETTER =================== -->
+<section id="contato" class="news">
+  <div class="wrap">
+    <div class="news-grid">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--mist); margin-bottom:24px;">Carta da casa</div>
+        <h2>Fique por <span class="it">dentro.</span></h2>
+      </div>
+      <div class="reveal" data-delay="100">
+        <p class="news-body">Receba antecipadamente novas fragrâncias, séries limitadas e textos sobre o universo do aroma. Sem ruído, apenas aquilo que importa.</p>
+        <form class="news-form" id="news-form" novalidate>
+          <input type="email" placeholder="seu@email.com" aria-label="Email" required>
+          <button type="submit">
+            Inscrever
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </button>
+        </form>
+        <p class="news-fine" id="news-fine">Sem spam. Apenas mensagens que importam.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-mark" style="color:var(--silver)">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true">
+            <path d="M14 30 a16 16 0 0 0 32 0" />
+            <path d="M30 16 C24 24 24 32 30 36 C36 32 36 24 30 16 Z" />
+            <line x1="30" y1="22" x2="30" y2="30" stroke-width=".7" opacity=".7"/>
+            <line x1="12" y1="44" x2="48" y2="44" opacity=".55"/>
+            <line x1="18" y1="48" x2="42" y2="48" opacity=".35"/>
+          </svg>
+          <span class="nav-mark-text">
+            <b>light&nbsp;·&nbsp;soul</b>
+            <small>AROMAS</small>
+          </span>
+        </div>
+        <p>Velas aromáticas artesanais. Pequenos lotes feitos à mão em São Paulo desde 2021.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Aromas</h5>
+        <ul>
+          <li><a href="#fragrancias">Fragrâncias</a></li>
+          <li><a href="#processo">Processo</a></li>
+          <li><a href="#">Diário do ateliê</a></li>
+          <li><a href="#">Imprensa</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Casa</h5>
+        <ul>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#">Manifesto</a></li>
+          <li><a href="#">Parcerias</a></li>
+          <li><a href="#">Pontos de venda</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="/cdn-cgi/l/email-protection#3857517854515f504c4b574d54165b5755165a4a"><span class="__cf_email__" data-cfemail="c5aaac85a9aca2adb1b6aab0a9eba6aaa8eba7b7">[email&#160;protected]</span></a></li>
+          <li><a href="#" id="footer-wa">WhatsApp</a></li>
+          <li><a href="#">Cuidado da vela</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Privacidade</a></li>
+          <li><a href="#">Termos</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <small>© 2026 Light Soul Aromas &nbsp;·&nbsp; Todos os direitos reservados</small>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M11 7c3 0 5 2 5 4.5S14 16 12 16c-1 0-2-.5-2-1.5"/><path d="m10 14-1 6"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.5 2.5 2.5 4 5 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- =================== PRODUCT MODAL =================== -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-card" id="modal-card">
+    <div class="modal-figure" id="modal-figure">
+      <button class="modal-close" id="modal-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal-info" id="modal-info"></div>
+  </div>
+</div>
+
+<!-- Tweaks mount -->
+<div id="tweaks-root"></div>
+
+<!-- =================== JS =================== -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ---------- DATA ---------- */
+const PRODUCTS = [
+  {
+    id: 'vanilla', n: '01', name: 'Vanilla', cat: 'quente',
+    notes: 'BAUNILHA · MEL · BENZOIN',
+    desc: 'Acariciante e reconfortante. Baunilha de Madagascar com notas de mel e benzoin para noites longas.',
+    long: 'Composição quente e açucarada que envolve o ambiente com a presença macia da baunilha bourbon, ancorada em benzoin e fechada com fios de mel. Para o cair da noite, conversas demoradas e a leitura de cabeceira.',
+    pyramid: [
+      ['SAÍDA', 'Mel · cardamomo'],
+      ['CORAÇÃO', 'Baunilha bourbon · tonka'],
+      ['FUNDO', 'Benzoin · âmbar suave'],
+    ],
+    price: 89, vibe: 'light',
+    jarStyle: 'frosted-white',
+    label: 'vanilla'
+  },
+  {
+    id: 'ambar', n: '02', name: 'Âmbar', cat: 'quente',
+    notes: 'ÂMBAR · PATCHOULI · CEDRO',
+    desc: 'Quente e sensual. Âmbar gris com patchouli e madeiras. Para momentos de introspecção.',
+    long: 'Uma assinatura olfativa densa e contemplativa. Âmbar gris envolto em patchouli filtrado e cedro Atlas — uma vela para escutar e ser escutado.',
+    pyramid: [
+      ['SAÍDA', 'Bergamota · cravo'],
+      ['CORAÇÃO', 'Âmbar gris · íris'],
+      ['FUNDO', 'Patchouli · cedro'],
+    ],
+    price: 99, vibe: 'dark',
+    jarStyle: 'glossy-black',
+    label: 'âmbar'
+  },
+  {
+    id: 'eucalipto', n: '03', name: 'Eucalipto Menta', cat: 'fresco',
+    notes: 'EUCALIPTO · MENTA · GENGIBRE',
+    desc: 'Refrescante e revigorante. Eucalipto australiano com menta piperita. Ideal para foco.',
+    long: 'Composição clara e cinética. Eucalipto australiano abre o espaço, a menta piperita acorda a mente, o gengibre fresco mantém o ritmo. Para o estúdio, o trabalho profundo, a manhã.',
+    pyramid: [
+      ['SAÍDA', 'Menta piperita · gengibre'],
+      ['CORAÇÃO', 'Eucalipto · pinho'],
+      ['FUNDO', 'Cedro · vetiver'],
+    ],
+    price: 79, vibe: 'light',
+    jarStyle: 'clear-glass',
+    label: 'eucalipto'
+  },
+  {
+    id: 'rosa', n: '04', name: 'Rosa Lavanda', cat: 'floral',
+    notes: 'ROSA BÚLGARA · LAVANDA · MUSK',
+    desc: 'Floral e tranquilizante. Rosa búlgara com lavanda francesa, perfeita para meditação.',
+    long: 'Bouquet floral que respira. Pétalas de rosa búlgara desabrocham sobre lavanda francesa e fundo de musk branco. Para meditação, banho longo, descanso real.',
+    pyramid: [
+      ['SAÍDA', 'Pera · folhas verdes'],
+      ['CORAÇÃO', 'Rosa búlgara · lavanda'],
+      ['FUNDO', 'Musk branco · sândalo'],
+    ],
+    price: 89, vibe: 'light',
+    jarStyle: 'frosted-pale',
+    label: 'rosa & lavanda'
+  },
+  {
+    id: 'sandalo', n: '05', name: 'Sândalo Cítrico', cat: 'amadeirado',
+    notes: 'SÂNDALO · BERGAMOTA · LIMÃO',
+    desc: 'Equilibrado e sofisticado. Sândalo indiano com bergamota e limão siciliano.',
+    long: 'Equilíbrio entre cítrico e madeira. Bergamota e limão siciliano abrem com energia limpa; o sândalo indiano puxa o ar para baixo. Uma vela versátil, para qualquer hora.',
+    pyramid: [
+      ['SAÍDA', 'Bergamota · limão siciliano'],
+      ['CORAÇÃO', 'Néroli · sândalo cremoso'],
+      ['FUNDO', 'Sândalo indiano · musk'],
+    ],
+    price: 94, vibe: 'light',
+    jarStyle: 'amber-glass',
+    label: 'sândalo'
+  },
+  {
+    id: 'oud', n: '06', name: 'Madeira de Oud', cat: 'amadeirado',
+    notes: 'OUD · CEDRO · TABACO',
+    desc: 'Profundo e misterioso. Oud premium com cedro e tabaco. Assinatura olfativa sofisticada.',
+    long: 'A coluna dorsal da casa. Oud em pequena quantidade — exato como deve ser — sobre cedro do Líbano e folha seca de tabaco. Vela para inverno, para silêncio, para presença.',
+    pyramid: [
+      ['SAÍDA', 'Pimenta rosa · açafrão'],
+      ['CORAÇÃO', 'Oud · couro suave'],
+      ['FUNDO', 'Cedro · tabaco · vetiver'],
+    ],
+    price: 129, vibe: 'dark',
+    jarStyle: 'matte-black',
+    label: 'oud'
+  },
+];
+
+/* ---------- JAR SVG GENERATOR ---------- */
+function jarSVG(style, label='', scale=1) {
+  // 6 jar finishes within the monochromatic brand palette
+  const presets = {
+    'frosted-white': { body: '#f6f5f1', stroke: '#1a1a1a', wax: '#ece1c4', txt: '#1a1a1a', labelBg:'#fff' },
+    'glossy-black':  { body: '#141414', stroke: '#000',    wax: '#0a0a0a', txt: '#f1f1f1', labelBg:'#0a0a0a' },
+    'clear-glass':   { body: '#ffffff', stroke: '#1a1a1a', wax: '#e7e7e7', txt: '#1a1a1a', labelBg:'#fff', clear:true },
+    'frosted-pale':  { body: '#f1f1f1', stroke: '#1a1a1a', wax: '#e8e3e3', txt: '#1a1a1a', labelBg:'#fff' },
+    'amber-glass':   { body: '#cccaba', stroke: '#1a1a1a', wax: '#a89a7c', txt: '#1a1a1a', labelBg:'#f1f1f1', clear:true },
+    'matte-black':   { body: '#1a1a1a', stroke: '#000',    wax: '#0d0d0d', txt: '#f1f1f1', labelBg:'#1a1a1a' },
+  };
+  const p = presets[style] || presets['frosted-white'];
+  const fillOp = p.clear ? '.55' : '1';
+  const wax = p.clear ? `<rect x="40" y="118" width="120" height="172" fill="${p.wax}" opacity=".7"/>` : `<rect x="40" y="118" width="120" height="172" fill="${p.wax}"/>`;
+  return `
+    <svg viewBox="0 0 200 300" fill="none" stroke="${p.stroke}" stroke-width=".9" preserveAspectRatio="xMidYMax meet">
+      <path d="M40 90 L40 280 Q40 290 50 290 L150 290 Q160 290 150 290 L160 290 Q160 290 160 280 L160 90 Z" fill="${p.body}" fill-opacity="${fillOp}"/>
+      <line x1="40" y1="118" x2="160" y2="118" stroke-width=".5" opacity=".5"/>
+      ${wax}
+      <rect x="36" y="84" width="128" height="10" rx="0.5" fill="${p.body}"/>
+      <line x1="36" y1="94" x2="164" y2="94" stroke-width=".7"/>
+      <rect x="64" y="180" width="72" height="76" fill="${p.labelBg}" stroke="${p.txt}" stroke-width=".3" opacity=".95"/>
+      <line x1="72" y1="196" x2="128" y2="196" stroke="${p.txt}" stroke-width=".3"/>
+      <text x="100" y="212" text-anchor="middle" font-family="Roboto" font-size="6" font-weight="500" letter-spacing="2.5" fill="${p.txt}">LIGHT SOUL</text>
+      <text x="100" y="232" text-anchor="middle" font-family="Roboto" font-size="9" font-weight="300" font-style="italic" fill="${p.txt}">${label}</text>
+      <line x1="80" y1="244" x2="120" y2="244" stroke="${p.txt}" stroke-width=".3"/>
+      <text x="100" y="252" text-anchor="middle" font-family="Roboto" font-size="4.5" font-weight="400" letter-spacing="1.5" fill="${p.txt}" opacity=".7">200G · ARTESANAL</text>
+      <ellipse cx="100" cy="294" rx="60" ry="2.5" fill="#000" opacity=".15"/>
+    </svg>`;
+}
+
+/* ---------- WHATSAPP ---------- */
+let WA_PHONE = '5511999999999'; // placeholder — substitua pelo número real
+function waLink(text){
+  return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+}
+function waProduct(p){
+  return waLink(`Olá! Tenho interesse na vela ${p.name} (N° ${p.n}) — ${fmtBRL(p.price)}. Pode me ajudar?`);
+}
+function refreshWALinks(){
+  const nav = document.getElementById('nav-wa');
+  if (nav) nav.href = waLink('Olá, Light Soul! Gostaria de saber mais sobre as velas.');
+  const foot = document.getElementById('footer-wa');
+  if (foot) foot.href = waLink('Olá, Light Soul!');
+}
+window.setWAPhone = function(n){
+  WA_PHONE = (n || '').replace(/\D/g, '') || '5511999999999';
+  refreshWALinks();
+};
+refreshWALinks();
+
+/* ---------- RENDER PRODUCTS ---------- */
+function fmtBRL(n){ return 'R$ ' + n.toLocaleString('pt-BR'); }
+
+function renderProducts(filter='all') {
+  const grid = document.getElementById('product-grid');
+  const list = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
+  grid.innerHTML = list.map(p => `
+    <article class="product" data-id="${p.id}" data-vibe="${p.vibe}" data-cat="${p.cat}" data-open="${p.id}">
+      <div class="product-figure">
+        ${jarSVG(p.jarStyle, p.label)}
+      </div>
+      <div class="product-meta">N° ${p.n} &nbsp;·&nbsp; ${catLabel(p.cat)}</div>
+      <h3 class="product-name">${p.name}</h3>
+      <div class="product-notes">${p.notes}</div>
+      <p class="product-desc">${p.desc}</p>
+      <div class="product-foot">
+        <span class="product-volume">Vela artesanal &middot; 200g</span>
+        <span class="product-more">
+          Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </span>
+      </div>
+    </article>
+  `).join('');
+  bindProductEvents();
+  document.querySelectorAll('#product-grid .product').forEach((el, i) => {
+    el.style.transition = 'opacity .6s var(--ease), transform .6s var(--ease)';
+    el.style.transitionDelay = (i*0.05)+'s';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    requestAnimationFrame(()=> {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  });
+}
+
+function bindProductEvents(){
+  document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openModal(b.dataset.open)));
+}
+
+function catLabel(c){
+  return ({quente:'Quente', fresco:'Fresca', floral:'Floral', amadeirado:'Amadeirada'})[c] || '';
+}
+
+/* ---------- MODAL ---------- */
+function openModal(id){
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modal-figure').innerHTML = `
+    <button class="modal-close" id="modal-close" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    ${jarSVG(p.jarStyle, p.label)}
+  `;
+  document.getElementById('modal-info').innerHTML = `
+    <div class="meta">N° ${p.n} &nbsp;·&nbsp; ${catLabel(p.cat)}</div>
+    <h3>${p.name}</h3>
+    <p class="lede">${p.long}</p>
+    <div class="modal-notes">
+      <h6>Pirâmide olfativa</h6>
+      <div class="pyramid">
+        ${p.pyramid.map(([k,v]) => `<div class="row"><b>${k}</b><span>${v}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="modal-specs">
+      <div><small>Volume</small><b>200g</b></div>
+      <div><small>Queima</small><b>40–50 horas</b></div>
+      <div><small>Pavio</small><b>Algodão sem chumbo</b></div>
+      <div><small>Cera</small><b>Soja vegetal</b></div>
+    </div>
+    <div class="modal-action">
+      <a class="btn" href="${waProduct(p)}" target="_blank" rel="noopener">Falar sobre esta vela</a>
+      <button class="btn ghost" data-close-modal>Fechar</button>
+    </div>
+  `;
+  document.getElementById('modal-info').querySelector('[data-close-modal]')?.addEventListener('click', closeModal);
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') closeModal();
+});
+
+/* ---------- FILTERS ---------- */
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+  c.classList.add('active');
+  renderProducts(c.dataset.filter);
+}));
+
+/* ---------- NAV SCROLL ---------- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ---------- REVEAL ON SCROLL ---------- */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const delay = e.target.dataset.delay || 0;
+      setTimeout(() => e.target.classList.add('in-view'), +delay);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+// process line activator (already a reveal target)
+const processObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in-view'); processObs.unobserve(e.target); }
+  });
+}, { threshold: .2 });
+processObs.observe(document.getElementById('process-line'));
+
+/* ---------- ABOUT PATTERN ---------- */
+(function patternFill(){
+  const root = document.getElementById('about-pattern');
+  if (!root) return;
+  const cells = 6 * 8;
+  for (let i=0; i < cells; i++){
+    const s = document.createElement('span');
+    s.textContent = i % 2 ? 'L · S' : 'AROMAS';
+    root.appendChild(s);
+  }
+})();
+
+/* ---------- NEWSLETTER ---------- */
+document.getElementById('news-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value.trim();
+  const fine = document.getElementById('news-fine');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    fine.textContent = 'Email inválido. Tente novamente.';
+    fine.style.color = '#ff9b9b';
+    return;
+  }
+  fine.textContent = 'Obrigada — em breve você receberá nossa primeira carta.';
+  fine.style.color = 'var(--silver)';
+  e.target.reset();
+});
+const form = document.getElementById('news-form');
+form.querySelector('input').addEventListener('focus', ()=> form.classList.add('focus'));
+form.querySelector('input').addEventListener('blur', ()=> form.classList.remove('focus'));
+
+/* ---------- KEY ESC ---------- */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeModal(); }
+});
+
+/* ---------- INIT ---------- */
+renderProducts('all');
+</script>
+
+<!-- Tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx" data-presets="react"></script>
+<script type="text/babel" data-presets="react">
+/* Tweaks for Light Soul site */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "heroHeadline": "Aromas que despertam a alma.",
+  "ctaText": "Explorar coleção",
+  "flameSize": 1,
+  "showTicker": true,
+  "manifestoTone": "dark",
+  "productLayout": "mixed",
+  "primaryFont": "Roboto",
+  "waPhone": "5511999999999"
+}/*EDITMODE-END*/;
+
+function Tweaks() {
+  const [t, set] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const h1 = document.querySelector('.hero-text h1');
+    if (h1 && t.heroHeadline) {
+      const words = t.heroHeadline.split(/\s+/);
+      const third = Math.max(1, Math.ceil(words.length / 3));
+      const lines = [
+        words.slice(0, third).join(' '),
+        words.slice(third, third*2).join(' '),
+        words.slice(third*2).join(' '),
+      ].filter(Boolean);
+      h1.innerHTML = lines.map((l, i) => `<span class="${i === lines.length-1 ? 'it' : ''}">${l}</span>`).join('');
+    }
+    const cta = document.querySelector('.hero-ctas .btn:not(.link)');
+    if (cta && t.ctaText) cta.textContent = t.ctaText;
+    document.documentElement.style.setProperty('--hero-flame-scale', t.flameSize);
+    const tk = document.querySelector('.ticker');
+    if (tk) tk.style.display = t.showTicker ? '' : 'none';
+
+    const m = document.querySelector('.manifesto');
+    if (m) {
+      if (t.manifestoTone === 'light') {
+        m.style.background = 'var(--silver-2)';
+        m.style.color = 'var(--ink)';
+        m.querySelectorAll('h2, .feature h3').forEach(x => x.style.color = 'var(--ink)');
+        m.querySelectorAll('p, .feature p').forEach(x => x.style.color = 'var(--ink-soft)');
+        m.querySelectorAll('.feature').forEach(f => {
+          f.style.borderRightColor = 'rgba(0,0,0,.1)';
+          f.style.borderBottomColor = 'rgba(0,0,0,.1)';
+        });
+        const mf = m.querySelector('.manifesto-features');
+        if (mf) mf.style.borderTopColor = 'rgba(0,0,0,.1)';
+        m.querySelectorAll('.feature-icon').forEach(i => i.style.color = 'var(--ink)');
+        m.querySelectorAll('.feature-no').forEach(i => i.style.color = 'var(--mist)');
+      } else {
+        m.style.background = '';
+        m.style.color = '';
+        m.querySelectorAll('h2, .feature h3, .feature-icon').forEach(x => x.style.color = '');
+        m.querySelectorAll('p, .feature p').forEach(x => x.style.color = '');
+        m.querySelectorAll('.feature').forEach(f => {
+          f.style.borderRightColor = '';
+          f.style.borderBottomColor = '';
+        });
+        const mf = m.querySelector('.manifesto-features');
+        if (mf) mf.style.borderTopColor = '';
+        m.querySelectorAll('.feature-no').forEach(i => i.style.color = '');
+      }
+    }
+
+    document.querySelectorAll('.product').forEach(p => {
+      const id = p.dataset.id;
+      const def = ({vanilla:'light', ambar:'dark', eucalipto:'light', rosa:'light', sandalo:'light', oud:'dark'})[id] || 'light';
+      let v = def;
+      if (t.productLayout === 'all-light') v = 'light';
+      if (t.productLayout === 'all-dark') v = 'dark';
+      p.dataset.vibe = v;
+    });
+
+    document.body.style.fontFamily = `'${t.primaryFont}', system-ui, sans-serif`;
+
+    // WhatsApp number propagation
+    if (typeof window.setWAPhone === 'function') window.setWAPhone(t.waPhone);
+  }, [t]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Hero">
+        <TweakText label="Manchete" value={t.heroHeadline} onChange={(v)=>set('heroHeadline', v)} />
+        <TweakText label="CTA" value={t.ctaText} onChange={(v)=>set('ctaText', v)} />
+        <TweakSlider label="Chama" value={t.flameSize} min={0.6} max={1.4} step={0.05} onChange={(v)=>set('flameSize', v)} />
+      </TweakSection>
+      <TweakSection label="Estrutura">
+        <TweakToggle label="Faixa superior" value={t.showTicker} onChange={(v)=>set('showTicker', v)} />
+        <TweakRadio label="Manifesto" value={t.manifestoTone} options={[
+          {value:'dark',  label:'Escuro'},
+          {value:'light', label:'Claro'},
+        ]} onChange={(v)=>set('manifestoTone', v)} />
+        <TweakSelect label="Cards" value={t.productLayout} options={[
+          {value:'mixed',     label:'Misto'},
+          {value:'all-light', label:'Todos claros'},
+          {value:'all-dark',  label:'Todos escuros'},
+        ]} onChange={(v)=>set('productLayout', v)} />
+      </TweakSection>
+      <TweakSection label="Tipografia">
+        <TweakSelect label="Fonte" value={t.primaryFont} options={[
+          {value:'Roboto',    label:'Roboto (marca)'},
+          {value:'Inter',     label:'Inter'},
+          {value:'Manrope',   label:'Manrope'},
+        ]} onChange={(v)=>set('primaryFont', v)} />
+      </TweakSection>
+      <TweakSection label="WhatsApp">
+        <TweakText label="Número (DDI+DDD)" value={t.waPhone} onChange={(v)=>set('waPhone', v.replace(/\D/g,''))} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<Tweaks />);
+</script>
+
+</body>
+</html>
